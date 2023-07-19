@@ -361,9 +361,9 @@ class StreamDeckServer:
             display_handler = self.display_handlers[serial_number]
             display_handler.synchronize()
     
-    def set_pages_name(deck_id: str, page: int, page_name: str) -> None:
+    def set_pages_name(self, deck_id: str, page: int, page_name: str) -> None:
         """Sets the page name for this page"""
-        if get_pages_name(deck_id, page) != page_name:
+        if self.get_pages_name(deck_id, page) != page_name:
             if "page_names" in self.state[deck_id]:
                 if bool(page_name):
                     self.state[deck_id]["page_names"][str(page)] = page_name
@@ -374,12 +374,12 @@ class StreamDeckServer:
             self._save_state()
 
 
-    def get_pages_name(deck_id: str, page: int) -> str:
+    def get_pages_name(self, deck_id: str, page: int) -> str:
         """Returns the page name set for the specified page. {} implies no page name."""
         return self.state[deck_id].get("page_names", {str(page): f"Page {page+1}"}).get(str(page), f"Page {page+1}")
 
 
-    def get_page_length(deck_id: str) -> int:
+    def get_page_length(self, deck_id: str) -> int:
         """return the number of page count"""
         return self.state[deck_id].get("buttons", {}).__len__()
 

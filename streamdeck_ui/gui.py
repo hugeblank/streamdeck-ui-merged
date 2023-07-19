@@ -644,8 +644,8 @@ def build_device(ui, _device_index=None) -> None:
         # Set the active page for this device
         ui.pages.setCurrentIndex(api.get_page(_deck_id(ui)))
         
-        ui.page_name.setText(api.get_pages_name(deck_id, _page(ui)))
-        update_page_name(ui, api.get_pages_name(deck_id, _page(ui)))
+        ui.page_name.setText(api.get_pages_name(_deck_id(ui), _page(ui)))
+        update_page_name(ui, api.get_pages_name(_deck_id(ui), _page(ui)))
 
         # Draw the buttons for the active page
         redraw_buttons(ui)
