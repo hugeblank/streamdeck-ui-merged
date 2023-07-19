@@ -303,7 +303,7 @@ class Ui_MainWindow(object):
         self.label_10 = QLabel(self.groupBox)
         self.label_10.setObjectName(u"label_10")
         
-        self.formLayout.setWidget(9, QFormLayout.labelRole, self.label_10)
+        self.formLayout.setWidget(9, QFormLayout.LabelRole, self.label_10)
 
         self.page_names = QComboBox(self.groupBox)
         self.page_names.setObjectName(u"page_names")

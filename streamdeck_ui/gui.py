@@ -983,7 +983,7 @@ def start(_exit: bool = False) -> None:
             ui = main_window.ui
             tray = create_tray(logo, app, main_window)
         
-            ui.page_name.textChanged.connect(partial(update_page_name, ui)
+            ui.page_name.textChanged.connect(partial(update_page_name, ui))
             api.streamdeck_keys.key_pressed.connect(partial(handle_keypress, ui))
 
             ui.device_list.currentIndexChanged.connect(partial(build_device, ui))
