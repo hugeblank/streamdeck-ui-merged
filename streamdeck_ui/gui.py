@@ -321,6 +321,35 @@ def update_switch_page(ui, page: int) -> None:
         deck_id = _deck_id(ui)
         api.set_button_switch_page(deck_id, _page(ui), _button(ui), page)
 
+def update_page_name(ui, name: str) -> None:
+    deck_id = _deck_id(ui)
+    api.set_pages_name(deck_id, _page(ui), name)
+    _update_page_names_items(ui)
+
+def _update_page_names_items(ui):
+    deck_id = _deck_id(ui)
+    ui.page_names.clear()
+    ui.page_names.addItem("")
+    for page_number in range(api.get_page_length(deck_id)):
+        page_name = api.get_pages_name(deck_id, page_number)
+        if bool(page_name):
+            ui.page_names.addItem(page_name)
+        else:
+            ui.page_names.addItem(f"Page {page_number+1}")
+    ui.switch_page.setMaximum(ui.page_names.count()-1)
+
+
+def update_page_names(ui, index: int) -> None:
+    if index == -1 or ui.page_names.count() == 1:
+        return
+    ui.switch_page.setValue(index)
+
+
+def _highlight_first_button(ui) -> None:
+    button = ui.pages.currentWidget().findChildren(QtWidgets.QToolButton)[0]
+    button.setChecked(False)
+    button.click()
+
 
 def change_page(ui, page: int) -> None:
     global selected_button
@@ -340,6 +369,7 @@ def change_page(ui, page: int) -> None:
     deck_id = _deck_id(ui)
     if deck_id:
         api.set_page(deck_id, page)
+        ui.page_name.setText(api.get_pages_name(deck_id, _page(ui)))
         redraw_buttons(ui)
         api.reset_dimmer(deck_id)
 
@@ -613,6 +643,9 @@ def build_device(ui, _device_index=None) -> None:
         ui.settingsButton.setEnabled(True)
         # Set the active page for this device
         ui.pages.setCurrentIndex(api.get_page(_deck_id(ui)))
+        
+        ui.page_name.setText(api.get_pages_name(deck_id, _page(ui)))
+        update_page_name(ui, api.get_pages_name(deck_id, _page(ui)))
 
         # Draw the buttons for the active page
         redraw_buttons(ui)
@@ -949,7 +982,8 @@ def start(_exit: bool = False) -> None:
             main_window = create_main_window(logo, app)
             ui = main_window.ui
             tray = create_tray(logo, app, main_window)
-
+        
+            ui.page_name.textChanged.connect(partial(update_page_name, ui)
             api.streamdeck_keys.key_pressed.connect(partial(handle_keypress, ui))
 
             ui.device_list.currentIndexChanged.connect(partial(build_device, ui))
@@ -966,7 +1000,7 @@ def start(_exit: bool = False) -> None:
             timer = QTimer()
             timer.start(500)
             timer.timeout.connect(lambda: None)  # type: ignore [attr-defined] # Let interpreter run to handle signal
-
+            
             # Handle SIGTERM so we release semaphore and shutdown API gracefully
             signal.signal(signal.SIGTERM, partial(sigterm_handler, api, app))
 

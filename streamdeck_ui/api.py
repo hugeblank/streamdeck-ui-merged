@@ -309,7 +309,6 @@ class StreamDeckServer:
         :rtype: str
         """
         return self._button_state(serial_number, page, button).get("text_vertical_align", "")
-
     def get_text_horizontal_align(self, serial_number: str, page: int, button: int) -> str:
         """Gets the vertical text alignment. Values are bottom, middle-bottom, middle, middle-top, top
 
@@ -361,6 +360,28 @@ class StreamDeckServer:
             self.update_button_filters(serial_number, page, button)
             display_handler = self.display_handlers[serial_number]
             display_handler.synchronize()
+    
+    def set_pages_name(deck_id: str, page: int, page_name: str) -> None:
+        """Sets the page name for this page"""
+        if get_pages_name(deck_id, page) != page_name:
+            if "page_names" in self.state[deck_id]:
+                if bool(page_name):
+                    self.state[deck_id]["page_names"][str(page)] = page_name
+                else:
+                    self.state[deck_id]["page_names"][str(page)]
+            else:
+                self.state[deck_id]["page_names"] = {str(page): page_name}
+            self._save_state()
+
+
+    def get_pages_name(deck_id: str, page: int) -> str:
+        """Returns the page name set for the specified page. {} implies no page name."""
+        return self.state[deck_id].get("page_names", {str(page): f"Page {page+1}"}).get(str(page), f"Page {page+1}")
+
+
+    def get_page_length(deck_id: str) -> int:
+        """return the number of page count"""
+        return self.state[deck_id].get("buttons", {}).__len__()
 
     def get_button_icon_pixmap(self, deck_id: str, page: int, button: int) -> Optional[QPixmap]:
         """Returns the QPixmap value for the given button (streamdeck, page, button)

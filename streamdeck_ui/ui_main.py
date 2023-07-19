@@ -98,6 +98,38 @@ class Ui_MainWindow(object):
 
         self.left_verticalLayout.addLayout(self.deviceSettings_horizontalLayout)
 
+        self.gridLayout = QGridLayout()
+        self.gridLayout.setObjectName(u"gridLayout")
+        self.current_page = QSpinBox(self.centralwidget)
+        self.current_page.setObjectName(u"current_page")
+        self.current_page.setMinimum(1)
+        self.current_page.setMaximum(999999)
+
+        self.gridLayout.addWidget(self.current_page, 0, 1, 1, 1)
+
+        self.label_9 = QLabel(self.centralwidget)
+        self.label_9.setObjectName(u"label_9")
+
+        self.gridLayout.addWidget(self.label_9, 0, 2, 1, 1)
+
+        self.label_4 = QLabel(self.centralwidget)
+        self.label_4.setObjectName(u"label_4")
+
+        self.gridLayout.addWidget(self.label_4, 0, 0, 1, 1)
+
+        self.page_name = QLineEdit(self.centralwidget)
+        self.page_name.setObjectName(u"page_name")
+
+        self.gridLayout.addWidget(self.page_name, 0, 3, 1, 1)
+
+
+        self.left_verticalLayout.addLayout(self.gridLayout)
+
+        self.formLayout_2 = QFormLayout()
+        self.formLayout_2.setObjectName(u"formLayout_2")
+
+        self.left_verticalLayout.addLayout(self.formLayout_2)
+
         self.pages = QTabWidget(self.centralwidget)
         self.pages.setObjectName(u"pages")
         sizePolicy2 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
@@ -107,60 +139,16 @@ class Ui_MainWindow(object):
         self.pages.setSizePolicy(sizePolicy2)
         self.pages.setAutoFillBackground(False)
         self.pages.setStyleSheet(u"b")
+        self.pages.setTabsClosable(False)
         self.page_1 = QWidget()
         self.page_1.setObjectName(u"page_1")
         self.gridLayout_2 = QGridLayout(self.page_1)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.pages.addTab(self.page_1, "")
-        self.page_2 = QWidget()
-        self.page_2.setObjectName(u"page_2")
-        self.gridLayout_3 = QGridLayout(self.page_2)
-        self.gridLayout_3.setObjectName(u"gridLayout_3")
-        self.pages.addTab(self.page_2, "")
-        self.page_3 = QWidget()
-        self.page_3.setObjectName(u"page_3")
-        self.gridLayout_11 = QGridLayout(self.page_3)
-        self.gridLayout_11.setObjectName(u"gridLayout_11")
-        self.pages.addTab(self.page_3, "")
-        self.page_4 = QWidget()
-        self.page_4.setObjectName(u"page_4")
-        self.gridLayout_10 = QGridLayout(self.page_4)
-        self.gridLayout_10.setObjectName(u"gridLayout_10")
-        self.pages.addTab(self.page_4, "")
-        self.page_5 = QWidget()
-        self.page_5.setObjectName(u"page_5")
-        self.gridLayout_9 = QGridLayout(self.page_5)
-        self.gridLayout_9.setObjectName(u"gridLayout_9")
-        self.pages.addTab(self.page_5, "")
-        self.page_6 = QWidget()
-        self.page_6.setObjectName(u"page_6")
-        self.gridLayout_8 = QGridLayout(self.page_6)
-        self.gridLayout_8.setObjectName(u"gridLayout_8")
-        self.pages.addTab(self.page_6, "")
-        self.page_7 = QWidget()
-        self.page_7.setObjectName(u"page_7")
-        self.gridLayout_7 = QGridLayout(self.page_7)
-        self.gridLayout_7.setObjectName(u"gridLayout_7")
-        self.pages.addTab(self.page_7, "")
-        self.page_8 = QWidget()
-        self.page_8.setObjectName(u"page_8")
-        self.gridLayout_6 = QGridLayout(self.page_8)
-        self.gridLayout_6.setObjectName(u"gridLayout_6")
-        self.pages.addTab(self.page_8, "")
-        self.page_9 = QWidget()
-        self.page_9.setObjectName(u"page_9")
-        self.gridLayout_5 = QGridLayout(self.page_9)
-        self.gridLayout_5.setObjectName(u"gridLayout_5")
-        self.pages.addTab(self.page_9, "")
-        self.tab_10 = QWidget()
-        self.tab_10.setObjectName(u"tab_10")
-        self.gridLayout_4 = QGridLayout(self.tab_10)
-        self.gridLayout_4.setObjectName(u"gridLayout_4")
-        self.pages.addTab(self.tab_10, "")
 
         self.left_verticalLayout.addWidget(self.pages)
 
-        self.left_verticalLayout.setStretch(1, 1)
+        self.left_verticalLayout.setStretch(3, 1)
 
         self.main_horizontalLayout.addLayout(self.left_verticalLayout)
 
@@ -286,7 +274,7 @@ class Ui_MainWindow(object):
         self.switch_page = QSpinBox(self.groupBox)
         self.switch_page.setObjectName(u"switch_page")
         self.switch_page.setMinimum(0)
-        self.switch_page.setMaximum(10)
+        self.switch_page.setMaximum(999999)
         self.switch_page.setValue(0)
 
         self.formLayout.setWidget(6, QFormLayout.FieldRole, self.switch_page)
@@ -312,6 +300,16 @@ class Ui_MainWindow(object):
 
         self.formLayout.setWidget(8, QFormLayout.FieldRole, self.write)
 
+        self.label_10 = QLabel(self.groupBox)
+        self.label_10.setObjectName(u"label_10")
+        
+        self.formLayout.setWidget(9, QFormLayout.labelRole, self.label_10)
+
+        self.page_names = QComboBox(self.groupBox)
+        self.page_names.setObjectName(u"page_names")
+        
+        self.formLayout.setWidget(9, QFormLayout.FieldRole, self.page_names)
+
         self.horizontalLayout_4 = QHBoxLayout()
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
         self.text_font = QComboBox(self.groupBox)
@@ -333,6 +331,7 @@ class Ui_MainWindow(object):
 
 
         self.formLayout.setLayout(2, QFormLayout.FieldRole, self.horizontalLayout_4)
+
 
 
         self.verticalLayout_3.addLayout(self.formLayout)
@@ -398,17 +397,7 @@ class Ui_MainWindow(object):
         self.actionGithub.setText(QCoreApplication.translate("MainWindow", u"Github", None))
         self.actionAbout.setText(QCoreApplication.translate("MainWindow", u"About...", None))
         self.settingsButton.setText("")
-        self.cpu_usage.setFormat("")
-        self.pages.setTabText(self.pages.indexOf(self.page_1), QCoreApplication.translate("MainWindow", u"Page 1", None))
-        self.pages.setTabText(self.pages.indexOf(self.page_2), QCoreApplication.translate("MainWindow", u"2", None))
-        self.pages.setTabText(self.pages.indexOf(self.page_3), QCoreApplication.translate("MainWindow", u"3", None))
-        self.pages.setTabText(self.pages.indexOf(self.page_4), QCoreApplication.translate("MainWindow", u"4", None))
-        self.pages.setTabText(self.pages.indexOf(self.page_5), QCoreApplication.translate("MainWindow", u"5", None))
-        self.pages.setTabText(self.pages.indexOf(self.page_6), QCoreApplication.translate("MainWindow", u"6", None))
-        self.pages.setTabText(self.pages.indexOf(self.page_7), QCoreApplication.translate("MainWindow", u"7", None))
-        self.pages.setTabText(self.pages.indexOf(self.page_8), QCoreApplication.translate("MainWindow", u"8", None))
-        self.pages.setTabText(self.pages.indexOf(self.page_9), QCoreApplication.translate("MainWindow", u"9", None))
-        self.pages.setTabText(self.pages.indexOf(self.tab_10), QCoreApplication.translate("MainWindow", u"10", None))
+        self.label_10.setText(QCoreApplication.translate("MainWindow", u"Page Name", None))
         self.groupBox.setTitle(QCoreApplication.translate("MainWindow", u"Configure Button", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"Image:", None))
         self.imageButton.setText(QCoreApplication.translate("MainWindow", u"Image...", None))
